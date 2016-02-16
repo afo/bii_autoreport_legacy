@@ -56,7 +56,7 @@ wg='BM-BC-2016S'
 
 
 
-
+bii_data(i,wg)
 
 bii_hbar1(i,wg)
 
@@ -116,38 +116,30 @@ def bii_data(i,wg):
 
 
 ### Lying barchart 1
+from pylab import *
 
 
-def bii_hbar1(i,wg):
-    if i != False:
-        i=False
-    else:
+#        
+#        plt.show()
 
-        import matplotlib.pyplot as plt; plt.rcdefaults()
-        import numpy as np
-        import matplotlib.pyplot as plt
-        
-        if i != False:
-            i_string = i
-        else:
-            i_string = wg
-        
-        
-        # Example data
-        titles = ('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ')
-        y_pos = np.arange(len(titles))
-        performance = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
-        error = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
-        
-        plt.barh(y_pos, performance, xerr=error, align='center', alpha=0.4)
-        plt.yticks(y_pos, titles)
-        plt.title('Score for ' + i_string)
-        plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
-        fig = matplotlib.pyplot.gcf()
-        fig.set_size_inches(6, 4)
-        axes = plt.gca()
-        axes.set_xlim([0,10])
-        plt.plot((mean(score), mean(score)), (-1, 8), 'r')
-        plt.show()
+
+
+
+
+#        
+#        # Example data
+#        titles = ('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ')
+#        y_pos = np.arange(len(titles))
+#        performance = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
+#        error = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
+#        frameon=False
+#        plt.barh(y_pos, performance, xerr=error, align='center', alpha=0.4)
+#        plt.yticks(y_pos, titles)
+#        plt.title('Score for ' + i_string)
+#        plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
+#        axes = plt.gca()
+#        axes.set_xlim([0,10])
+#        plt.plot((mean(score), mean(score)), (-1, 8), 'r')
+#        plt.show()
     
     

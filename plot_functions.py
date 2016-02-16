@@ -2,7 +2,7 @@
 """
 Created on Wed Feb 10 10:20:05 2016
 
-@author: FO
+@author: Alexander Fred Ojala
 """
 
 
@@ -12,75 +12,21 @@ import pandas as pd
 from pylab import *
 import os
 print os.getcwd()
+from sys import argv
 
-
-df0 = pd.read_csv('fulldata.csv')
-trust_tot=df0['trust']=(.27*df0['QT1'].fillna(value=3)+.16*(6-df0['QT2'].fillna(value=3))+.34*df0['QT3'].fillna(value=3)+.22*(6-df0['QT1'].fillna(value=3)))* 9/4 - 5/4
-res_tot=df0['res']=(.26*df0['QF1'].fillna(value=3)+.21*df0['QF2'].fillna(value=3)+.35*df0['QF3'].fillna(value=3)+.17*df0['QF4'].fillna(value=3))* 9/4 - 5/4
-div_tot=df0['div']= (.15*df0['QD1'].fillna(value=3)+.29*df0['QD2'].fillna(value=3)+.35*df0['QD3'].fillna(value=3)+.20*df0['QD4'].fillna(value=3))* 9/4 - 5/4
-bel_tot=df0['belief']=(.24*df0['QB1'].fillna(value=3)+.3*df0['QB2'].fillna(value=3)+.3*df0['QB3'].fillna(value=3)+.16*df0['QB4'].fillna(value=3))* 9/4 - 5/4
-collab_tot=df0['collaboration']= (0*df0['QC1'].fillna(value=3)+ 0*df0['QC2'].fillna(value=3)+.59*df0['QC3'].fillna(value=3)+.41*df0['QC4'].fillna(value=3))* 9/4 - 5/4
-perf_tot=df0['perfection']= (.55*(6-df0['QP3'].fillna(value=3))+.45*df0['QP4'].fillna(value=3))* 9/4 - 5/4
-czx_tot=df0['CZX']= (df0['CZ'].fillna(value=2.5)-1)*3+1
-iz_tot=df0['IZ']= (.47*df0['CZX']/2 + .53*df0['SDR'].fillna(value=3)) * 9/4- 5/4; 
-score_tot=df0['score']=(df0['trust']+df0['res']+df0['div']+df0['belief']+df0['collaboration']+df0['perfection']+df0['IZ'])/7
-
-
-
-
-
-
-
-
-
-
-
-
-wg=False
-i='andrew_k_yu@yahoo.com'
-i='yadavsuren@gmail.com'
-
-
-i=False
-wg = 'Total'
-wg='ELPP-2015F'
-wg='BM-BC-2016S'
-
-
-
-# Create data and plot
-bii_data(i,wg)
-bii_radar1(i,wg)
-bii_radar2(i,wg)
-bii_vbar1(i,wg)
-bii_hist(i,wg)
-
-
-
-#bii_hbar1(i,wg)
-
-
-
-
-
-
-
-
-
-
-
-
-### READ IN DATA and Specify data variables
+individual = argv[1]
+workgroup = argv[2]
+ind_in_workgroup = argv[3]
 
 
 def bii_data(i,wg):
     
-    df0 = pd.read_csv('fulldata.csv')
+    df = pd.read_csv('fulldata.csv')
     
     if i != False:
-        df0 = df0.loc[df0['Email Address'] == i]
+        df0 = df.loc[df['Email Address'] == i]
     elif wg != False:
-        df0 = df0.loc[df0['Code'] == wg]
+        df0 = df.loc[df0['Code'] == wg]
     elif wg == 'Total':
         wg = 'Total'
         
@@ -112,8 +58,79 @@ def bii_data(i,wg):
 
 
 
+def bii_group_data(code):
+    global trust_tot
+    global res_tot
+    global div_tot
+    global bel_tot
+    global collab_tot
+    global perf_tot
+    global czx_tot
+    global iz_tot
+    global score_tot
+    df_code = pd.read_csv('fulldata.csv')
+    trust_tot=df_code['trust']=(.27*df_code['QT1'].fillna(value=3)+.16*(6-df_code['QT2'].fillna(value=3))+.34*df_code['QT3'].fillna(value=3)+.22*(6-df_code['QT1'].fillna(value=3)))* 9/4 - 5/4
+    res_tot=df_code['res']=(.26*df_code['QF1'].fillna(value=3)+.21*df_code['QF2'].fillna(value=3)+.35*df_code['QF3'].fillna(value=3)+.17*df_code['QF4'].fillna(value=3))* 9/4 - 5/4
+    div_tot=df_code['div']= (.15*df_code['QD1'].fillna(value=3)+.29*df_code['QD2'].fillna(value=3)+.35*df_code['QD3'].fillna(value=3)+.20*df_code['QD4'].fillna(value=3))* 9/4 - 5/4
+    bel_tot=df_code['belief']=(.24*df_code['QB1'].fillna(value=3)+.3*df_code['QB2'].fillna(value=3)+.3*df_code['QB3'].fillna(value=3)+.16*df_code['QB4'].fillna(value=3))* 9/4 - 5/4
+    collab_tot=df_code['collaboration']= (0*df_code['QC1'].fillna(value=3)+ 0*df_code['QC2'].fillna(value=3)+.59*df_code['QC3'].fillna(value=3)+.41*df_code['QC4'].fillna(value=3))* 9/4 - 5/4
+    perf_tot=df_code['perfection']= (.55*(6-df_code['QP3'].fillna(value=3))+.45*df_code['QP4'].fillna(value=3))* 9/4 - 5/4
+    czx_tot=df_code['CZX']= (df_code['CZ'].fillna(value=2.5)-1)*3+1
+    iz_tot=df_code['IZ']= (.47*df_code['CZX']/2 + .53*df_code['SDR'].fillna(value=3)) * 9/4- 5/4; 
+    score_tot=df_code['score']=(df_code['trust']+df_code['res']+df_code['div']+df_code['belief']+df_code['collaboration']+df_code['perfection']+df_code['IZ'])/7
 
 
+
+
+
+
+def main():
+
+    if individual != '0':
+        workgroup=False
+        if ind_in_workgroup != '0':
+            wg_code=df0.iloc[0]['Code']
+            if math.isnan(wg_code):
+                print "No workgroup Associated w individual"
+                return                
+            bii_group_data(code)
+            bii_radar1(individual,workgroup)
+            bii_radar2(individual,workgroup)
+            bii_vbar1(i,wg)
+            bii_hist(i,wg)
+            
+
+
+
+wg=False
+i='andrew_k_yu@yahoo.com'
+i='yadavsuren@gmail.com'
+i='zhirshfeld@gmail.com'
+i='jegoubet@gmail.com'
+
+i=False
+wg = 'Total'
+wg='ELPP-2015F'
+wg='BM-BC-2016S'
+
+
+
+# Create data and plot
+bii_data(i,wg)
+bii_radar1(i,wg)
+bii_radar2(i,wg)
+bii_vbar1(i,wg)
+bii_hist(i,wg)
+
+
+
+#bii_hbar1(i,wg)
+
+
+
+
+
+### READ IN DATA and Specify data variables
 
 
 
@@ -389,7 +406,6 @@ def radar_graph(i_string,labels = [], values = [], optimum = []):
     ha='center', color='black', size='large',fontweight='bold')
     plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
     plt.show()
-    plt.savefig("radar.png", dpi=100)
 
 
 ### PLOT RADAR
@@ -526,36 +542,33 @@ def bii_vbar1(i,wg):
 ### Lying barchart 1
 
 
+
 def bii_hbar1(i,wg):
     if i != False:
         i=False
     else:
 
-        import matplotlib.pyplot as plt; plt.rcdefaults()
-        import numpy as np
-        import matplotlib.pyplot as plt
-        
         if i != False:
             i_string = i
         else:
             i_string = wg
+            
+        import matplotlib.pyplot as plt
         
+        val = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
+        err = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
+        pos = arange(8)    # the bar centers on the y axis
+
+
         
-        # Example data
-        titles = ('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ')
-        y_pos = np.arange(len(titles))
-        performance = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
-        error = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
-        
-        plt.barh(y_pos, performance, xerr=error, align='center', alpha=0.4)
-        plt.yticks(y_pos, titles)
+        plt.barh(pos,val, xerr=err, ecolor='r', align='center')
+        plt.yticks(pos, (('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ')))
+        plt.xlabel('Score')
+        plt.plot((mean(score), mean(score)), (-1, 8), 'g')
         plt.title('Score for ' + i_string)
         plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
-        fig = matplotlib.pyplot.gcf()
-        fig.set_size_inches(6, 4)
         axes = plt.gca()
         axes.set_xlim([0,10])
-        plt.plot((mean(score), mean(score)), (-1, 8), 'r')
         plt.show()
     
     
@@ -674,3 +687,26 @@ def bii_hbar1(i,wg):
 #    
 #    
 #    
+
+
+
+if (__name__ == "__main__"):
+    main()
+    
+    
+    
+    
+    
+# Start by reading in the full data
+#
+#df0 = pd.read_csv('fulldata.csv')
+#trust_tot=df0['trust']=(.27*df0['QT1'].fillna(value=3)+.16*(6-df0['QT2'].fillna(value=3))+.34*df0['QT3'].fillna(value=3)+.22*(6-df0['QT1'].fillna(value=3)))* 9/4 - 5/4
+#res_tot=df0['res']=(.26*df0['QF1'].fillna(value=3)+.21*df0['QF2'].fillna(value=3)+.35*df0['QF3'].fillna(value=3)+.17*df0['QF4'].fillna(value=3))* 9/4 - 5/4
+#div_tot=df0['div']= (.15*df0['QD1'].fillna(value=3)+.29*df0['QD2'].fillna(value=3)+.35*df0['QD3'].fillna(value=3)+.20*df0['QD4'].fillna(value=3))* 9/4 - 5/4
+#bel_tot=df0['belief']=(.24*df0['QB1'].fillna(value=3)+.3*df0['QB2'].fillna(value=3)+.3*df0['QB3'].fillna(value=3)+.16*df0['QB4'].fillna(value=3))* 9/4 - 5/4
+#collab_tot=df0['collaboration']= (0*df0['QC1'].fillna(value=3)+ 0*df0['QC2'].fillna(value=3)+.59*df0['QC3'].fillna(value=3)+.41*df0['QC4'].fillna(value=3))* 9/4 - 5/4
+#perf_tot=df0['perfection']= (.55*(6-df0['QP3'].fillna(value=3))+.45*df0['QP4'].fillna(value=3))* 9/4 - 5/4
+#czx_tot=df0['CZX']= (df0['CZ'].fillna(value=2.5)-1)*3+1
+#iz_tot=df0['IZ']= (.47*df0['CZX']/2 + .53*df0['SDR'].fillna(value=3)) * 9/4- 5/4; 
+#score_tot=df0['score']=(df0['trust']+df0['res']+df0['div']+df0['belief']+df0['collaboration']+df0['perfection']+df0['IZ'])/7
+
