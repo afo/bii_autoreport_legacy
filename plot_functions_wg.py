@@ -119,10 +119,12 @@ wg='BM-BC-2016S'
 
 # Create data and plot
 bii_data(i,wg)
+bii_group_data(wg)
 bii_radar1(i,wg)
 bii_radar2(i,wg)
 bii_vbar1(i,wg)
 bii_hist(i,wg)
+bii_hbar1(i,wg)
 
 
 
@@ -396,17 +398,18 @@ def radar_graph(i_string,labels = [], values = [], optimum = []):
     ax = fig.add_subplot(1, 1, 1, projection='radar')
     ax.plot(theta, values, color='blue')
     ax.fill(theta, values, facecolor='blue', alpha=0.25)
-    ax.plot(theta, optimum, color='r')
+#    ax.plot(theta, optimum, color='r')
     ax.set_varlabels(labels)
     ax.set_ylim([0,10])
     #legend
     import matplotlib.patches as mpatches
-    blue_patch = mpatches.Patch(color='blue', label='Individual Score')
-    red_patch = mpatches.Patch(color='red', label='Total Average Score ')
-    plt.legend(handles=[blue_patch,red_patch],bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-    plt.figtext(0.55, 1.05, 'Results for '+ i_string,
+    blue_patch = mpatches.Patch(color='blue', label='Score')
+#    red_patch = mpatches.Patch(color='red', label='Total Average Score ')
+#    plt.legend(handles=[blue_patch,red_patch],bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    plt.legend(handles=[blue_patch],bbox_to_anchor=(0.95, 1.05), loc=2, borderaxespad=0.)    
+    plt.figtext(0.55, 1, 'Results for '+ i_string,
     ha='center', color='black', size='large',fontweight='bold')
-    plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
+    plt.xlabel(r'$\mathrm{Total \ Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
     plt.show()
 
 
@@ -418,7 +421,7 @@ def bii_radar2(i,wg):
     else:
         i_string = wg
     
-    labels = ['Trust', 'Resilience', 'Diver', 'Mentality','Perfection', 'Collaboration', 'Resource All', 'IZ']
+    labels = ['Tru', 'Res', 'Div', 'Ment Str','Perf', 'Collab', 'Res All', 'In Zone']
     values = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
     optimum = [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(perf_tot),mean(czx_tot),mean(iz_tot)]        
     radar_graph(i_string,labels, values, optimum)
@@ -452,18 +455,20 @@ def bii_hist(i,wg):
         (mu, sigma) = norm.fit(datos)
         
         # the histogram of the data
-        n, bins, patches = plt.hist(datos, 10, normed=1, facecolor='green', alpha=0.75)
+        n, bins, patches = plt.hist(datos, 10, facecolor='green', alpha=0.75,label='Probability')
         
         # add a 'best fit' line
         y = mlab.normpdf( bins, mu, sigma)
-        l = plt.plot(bins, y, 'r--', linewidth=2)
+        l = plt.plot(bins, y*mu, 'r--', linewidth=1,label='Distribution')
         
         #plot
-        plt.xlabel('Innovation index score for' + wg)
+        plt.xlabel('Histogram: Total Innovation Index Score for ' + wg)
         plt.ylabel('Probability')
-        plt.title(r'$\mathrm{Overall \ Innovation \ Index \ Score:}\ \mu=%.3f,\ \sigma=%.3f$' %(mu, sigma))
+        plt.title(r'$\mathrm{Innovation \ Index \ Score:}\ \mu=%.3f,\ \sigma=%.3f$' %(mu, sigma))
         plt.grid(True)
-        plt.plot((mu, mu), (0, 0.45), 'b--')
+        plt.plot((mu, mu), (0, 7), 'b',linewidth=2,label='Average')
+        plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.1, 1.1),borderaxespad=0.)
+        
         
         
         plt.show()
@@ -563,14 +568,20 @@ def bii_hbar1(i,wg):
 
 
         
-        plt.barh(pos,val, xerr=err, ecolor='r', align='center')
-        plt.yticks(pos, (('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ')))
+        
+        
+        
+        plt.plot((mean(score), mean(score)), (-1, 8), 'g',label='Average',linewidth=3)
+        plt.barh(pos,val, xerr=err, ecolor='r', align='center',label='Score')
+        plt.errorbar(val,pos, xerr=err, label="St Dev", color='r',fmt='o')
+        plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.1, 1.1),borderaxespad=0.)
+        plt.yticks(pos, (('Tru', 'Res', 'Div', 'Ment Str','Perf', 'Collab', 'Res All', 'In Zone')))
         plt.xlabel('Score')
-        plt.plot((mean(score), mean(score)), (-1, 8), 'g')
-        plt.title('Score for ' + i_string)
-        plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
+        plt.title('Results for ' + i_string)
+        plt.xlabel(r'$\mathrm{Total \ Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
         axes = plt.gca()
         axes.set_xlim([0,10])
+#        plt.legend((score_all,score_mean), ('Score','Mean'),bbox_to_anchor=(1.3, 1.3),borderaxespad=0.)
         plt.show()
     
     
