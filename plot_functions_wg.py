@@ -123,7 +123,8 @@ bii_group_data(wg)
 bii_radar1(i,wg)
 bii_radar2(i,wg)
 bii_vbar1(i,wg)
-bii_hist(i,wg)
+bii_hist(i,wg,score,'Innovation Index Scores ','green')
+bii_hist(i,wg,iz,'Comfort Zone Score ','yellow')
 bii_hbar1(i,wg)
 
 
@@ -444,30 +445,37 @@ import matplotlib.pyplot as plt
 
 # read data from a text file. One number per line
 
-def bii_hist(i,wg):
+def bii_hist(i,wg,hdat,hstr,col):
     if i != False:
         i = False
     else:           
 
-        datos=score
+        datos=hdat
         
         # best fit of data
         (mu, sigma) = norm.fit(datos)
+        no_bins = 8
+        if len(set(hdat)) < 20:
+            no_bins = len(set(hdat))/2
         
         # the histogram of the data
-        n, bins, patches = plt.hist(datos, 10, facecolor='green', alpha=0.75,label='Probability')
+        n, bins, patches = plt.hist(datos, no_bins, facecolor=col, alpha=0.75,label='Counts')
+        
+        height = n.max()
         
         # add a 'best fit' line
         y = mlab.normpdf( bins, mu, sigma)
-        l = plt.plot(bins, y*mu, 'r--', linewidth=1,label='Distribution')
+        print y
+        l = plt.plot(bins, y*height, 'r--', linewidth=1,label='Distribution')
         
         #plot
-        plt.xlabel('Histogram: Total Innovation Index Score for ' + wg)
-        plt.ylabel('Probability')
-        plt.title(r'$\mathrm{Innovation \ Index \ Score:}\ \mu=%.3f,\ \sigma=%.3f$' %(mu, sigma))
+        plt.title(r'$\mathrm{Workgroup \ Result \ Statistics \ :}\ \mu=%.3f,\ \sigma=%.3f$' %(mu, sigma),fontsize=18,y=-0.29)
+        plt.ylabel('Counts',fontsize=12)
+        plt.xlabel(hstr)
+        plt.suptitle('Histogram of ' + hstr + wg, fontsize=14, fontweight='bold', y=1.05)
         plt.grid(True)
-        plt.plot((mu, mu), (0, 7), 'b',linewidth=2,label='Average')
-        plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.1, 1.1),borderaxespad=0.)
+        plt.plot((mu, mu), (0, height), 'b',linewidth=2,label='Average')
+        plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.2, 1),borderaxespad=0.)
         
         
         
@@ -577,8 +585,8 @@ def bii_hbar1(i,wg):
         plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.1, 1.1),borderaxespad=0.)
         plt.yticks(pos, (('Tru', 'Res', 'Div', 'Ment Str','Perf', 'Collab', 'Res All', 'In Zone')))
         plt.xlabel('Score')
-        plt.title('Results for ' + i_string)
-        plt.xlabel(r'$\mathrm{Total \ Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
+        plt.title('Results for ' + i_string, fontweight='bold', y=1.01)
+        plt.xlabel(r'$\mathrm{Total \ Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18')
         axes = plt.gca()
         axes.set_xlim([0,10])
 #        plt.legend((score_all,score_mean), ('Score','Mean'),bbox_to_anchor=(1.3, 1.3),borderaxespad=0.)
