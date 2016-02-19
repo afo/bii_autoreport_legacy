@@ -63,9 +63,44 @@ czx_av_women=mean(df_women['CZX'])
 iz_av_men=mean(df_men['IZ'])
 iz_av_women=mean(df_women['IZ'])
 
-#quantity
 
-# dataframe age
+## dataframe age
+
+df_age_young=df0.loc[df0['Age']== 1]
+df_age_mid=df0.loc[df0['Age']== 2]
+df_age_old=df0.loc[df0['Age']== 3]
+
+young_av_trust=mean(df_age_young['trust'])
+mid_av_trust=mean(df_age_young['trust'])
+old_av_trust= mean(df_age_young['trust'])
+
+young_av_res=mean(df_age_young['res'])
+mid_av_res=mean(df_age_young['res'])
+old_av_res= mean(df_age_young['res'])
+
+young_av_div=mean(df_age_young['div'])
+mid_av_div=mean(df_age_young['div'])
+old_av_div= mean(df_age_young['div'])
+
+young_av_bel=mean(df_age_young['belief'])
+mid_av_bel=mean(df_age_young['belief'])
+old_av_bel= mean(df_age_young['belief'])
+
+young_av_collab=mean(df_age_young['collaboration'])
+mid_av_collab=mean(df_age_young['collaboration'])
+old_av_collab= mean(df_age_young['collaboration'])
+
+young_av_perf=mean(df_age_young['perfection'])
+mid_av_perf=mean(df_age_young['perfection'])
+old_av_perf= mean(df_age_young['perfection'])
+
+young_av_czx=mean(df_age_young['CZX'])
+mid_av_czx=mean(df_age_young['CZX'])
+old_av_czx= mean(df_age_young['CZX'])
+
+young_av_iz=mean(df_age_young['IZ'])
+mid_av_iz=mean(df_age_young['IZ'])
+old_av_iz= mean(df_age_young['IZ'])
 
 # dataframe study
 
@@ -84,7 +119,7 @@ data = [
 plot_url = py.plot(data, filename='basic-bar')
 
 
-# Men vs Women -Bar charts
+# Men vs Women - Bar chart
 
 trace1 = go.Bar(
     x=['Trust', 'Resilience', 'Diversity', 'Belief', 'Collaboration', 'Perfection', 'CZX', 'IZ'],
@@ -104,3 +139,26 @@ fig = go.Figure(data=data, layout=layout)
 plot_url = py.plot(fig, filename='grouped-abr')
 
 
+# Age distribution - Stacked bar chart
+
+trace1 = go.Bar(
+    x=['Trust', 'Resilience', 'Diversity', 'Belief', 'Collaboration', 'Perfection', 'CZX', 'IZ'],
+    y=[young_av_trust, young_av_res, young_av_div, young_av_bel, young_av_collab, young_av_perf, young_av_czx, young_av_iz],
+    name='Young'
+)
+trace2 = go.Bar(
+    x=['Trust', 'Resilience', 'Diversity', 'Belief', 'Collaboration', 'Perfection', 'CZX', 'IZ'],
+    y=[mid_av_trust, mid_av_res, mid_av_div, mid_av_bel, mid_av_collab, mid_av_perf, mid_av_czx, mid_av_iz],
+    name='Mid'
+)
+trace3 = go.Bar(
+    x=['Trust', 'Resilience', 'Diversity', 'Belief', 'Collaboration', 'Perfection', 'CZX', 'IZ'],
+    y=[old_av_trust, old_av_res, old_av_div, old_av_bel, old_av_collab, old_av_perf, old_av_czx, old_av_iz],
+    name='Old'
+)
+data = [trace1, trace2, trace3]
+layout = go.Layout(
+    barmode='stack'
+)
+fig = go.Figure(data=data, layout=layout)
+plot_url = py.plot(fig, filename='stacked-bar')
