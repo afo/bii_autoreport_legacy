@@ -37,18 +37,20 @@ def bii_data(i,wg):
     global div
     global bel
     global collab
-    global perf
+    global resall
     global czx
     global iz
     global score
+    global comfort
     
     trust=df0['trust']=(.27*df0['QT1'].fillna(value=3)+.16*(6-df0['QT2'].fillna(value=3))+.34*df0['QT3'].fillna(value=3)+.22*(6-df0['QT1'].fillna(value=3)))* 9/4 - 5/4
     res=df0['res']=(.26*df0['QF1'].fillna(value=3)+.21*df0['QF2'].fillna(value=3)+.35*df0['QF3'].fillna(value=3)+.17*df0['QF4'].fillna(value=3))* 9/4 - 5/4
     div=df0['div']= (.15*df0['QD1'].fillna(value=3)+.29*df0['QD2'].fillna(value=3)+.35*df0['QD3'].fillna(value=3)+.20*df0['QD4'].fillna(value=3))* 9/4 - 5/4
     bel=df0['belief']=(.24*df0['QB1'].fillna(value=3)+.3*df0['QB2'].fillna(value=3)+.3*df0['QB3'].fillna(value=3)+.16*df0['QB4'].fillna(value=3))* 9/4 - 5/4
     collab=df0['collaboration']= (0*df0['QC1'].fillna(value=3)+ 0*df0['QC2'].fillna(value=3)+.59*df0['QC3'].fillna(value=3)+.41*df0['QC4'].fillna(value=3))* 9/4 - 5/4
-    perf=df0['perfection']= (.55*(6-df0['QP3'].fillna(value=3))+.45*df0['QP4'].fillna(value=3))* 9/4 - 5/4
+    resall=df0['perfection']= (.55*(6-df0['QP3'].fillna(value=3))+.45*df0['QP4'].fillna(value=3))* 9/4 - 5/4
     czx=df0['CZX']= (df0['CZ'].fillna(value=2.5)-1)*3+1
+    comfort=df0['CZ'].fillna(value=2.5)
     iz=df0['IZ']= (.47*df0['CZX']/2 + .53*df0['SDR'].fillna(value=3)) * 9/4- 5/4;  
     
     #Calculate overall score
@@ -66,7 +68,7 @@ def bii_group_data(code):
     global div_tot
     global bel_tot
     global collab_tot
-    global perf_tot
+    global resall_tot
     global czx_tot
     global iz_tot
     global score_tot
@@ -76,8 +78,9 @@ def bii_group_data(code):
     div_tot=df_code['div']= (.15*df_code['QD1'].fillna(value=3)+.29*df_code['QD2'].fillna(value=3)+.35*df_code['QD3'].fillna(value=3)+.20*df_code['QD4'].fillna(value=3))* 9/4 - 5/4
     bel_tot=df_code['belief']=(.24*df_code['QB1'].fillna(value=3)+.3*df_code['QB2'].fillna(value=3)+.3*df_code['QB3'].fillna(value=3)+.16*df_code['QB4'].fillna(value=3))* 9/4 - 5/4
     collab_tot=df_code['collaboration']= (0*df_code['QC1'].fillna(value=3)+ 0*df_code['QC2'].fillna(value=3)+.59*df_code['QC3'].fillna(value=3)+.41*df_code['QC4'].fillna(value=3))* 9/4 - 5/4
-    perf_tot=df_code['perfection']= (.55*(6-df_code['QP3'].fillna(value=3))+.45*df_code['QP4'].fillna(value=3))* 9/4 - 5/4
+    resall_tot=df_code['perfection']= (.55*(6-df_code['QP3'].fillna(value=3))+.45*df_code['QP4'].fillna(value=3))* 9/4 - 5/4
     czx_tot=df_code['CZX']= (df_code['CZ'].fillna(value=2.5)-1)*3+1
+    comfort_tot=df_code['CZ'].fillna(value=2.5)    
     iz_tot=df_code['IZ']= (.47*df_code['CZX']/2 + .53*df_code['SDR'].fillna(value=3)) * 9/4- 5/4; 
     score_tot=df_code['score']=(df_code['trust']+df_code['res']+df_code['div']+df_code['belief']+df_code['collaboration']+df_code['perfection']+df_code['IZ'])/7
 
@@ -124,7 +127,7 @@ bii_radar1(i,wg)
 bii_radar2(i,wg)
 bii_vbar1(i,wg)
 bii_hist(i,wg,score,'Innovation Index Scores ','green')
-bii_hist(i,wg,iz,'Comfort Zone Score ','yellow')
+bii_hist(i,wg,comfort,'Comfort Zone Score ','yellow')
 bii_hbar1(i,wg)
 
 
@@ -273,17 +276,17 @@ def bii_radar1(i,w):
     def create_data(i,w):
         if i != False:
             data = [
-                    ['Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ'],
+                    ['Trust', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone'],
                     (i, [
-                        [float(trust),float(res),float(div),float(bel),float(collab),float(perf),float(czx),float(iz)],
-                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(perf_tot),mean(czx_tot),mean(iz_tot)]])
+                        [float(trust),float(res),float(div),float(bel),float(collab),float(resall),float(czx),float(iz)],
+                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]])
                     ]
             return data
         elif wg != False:
             data = [
-                    ['Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ'],
+                    ['Trust', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone'],
                     (wg, [
-                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(perf_tot),mean(czx_tot),mean(iz_tot)]])
+                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]])
                     ]
             return data
 
@@ -422,9 +425,9 @@ def bii_radar2(i,wg):
     else:
         i_string = wg
     
-    labels = ['Tru', 'Res', 'Div', 'Ment Str','Perf', 'Collab', 'Res All', 'In Zone']
-    values = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
-    optimum = [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(perf_tot),mean(czx_tot),mean(iz_tot)]        
+    labels = ['Tru', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone']
+    values = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(resall),mean(czx),mean(iz)]
+    optimum = [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]        
     radar_graph(i_string,labels, values, optimum)
 
 
@@ -454,9 +457,9 @@ def bii_hist(i,wg,hdat,hstr,col):
         
         # best fit of data
         (mu, sigma) = norm.fit(datos)
-        no_bins = 8
+        no_bins = 10
         if len(set(hdat)) < 20:
-            no_bins = len(set(hdat))/2
+            no_bins = len(set(hdat))
         
         # the histogram of the data
         n, bins, patches = plt.hist(datos, no_bins, facecolor=col, alpha=0.75,label='Counts')
@@ -466,7 +469,7 @@ def bii_hist(i,wg,hdat,hstr,col):
         # add a 'best fit' line
         y = mlab.normpdf( bins, mu, sigma)
         print y
-        l = plt.plot(bins, y*height, 'r--', linewidth=1,label='Distribution')
+        l = plt.plot(bins, y*height*1.6, 'r--', linewidth=1,label='Distribution')
         
         #plot
         plt.title(r'$\mathrm{Workgroup \ Result \ Statistics \ :}\ \mu=%.3f,\ \sigma=%.3f$' %(mu, sigma),fontsize=18,y=-0.29)
@@ -504,8 +507,8 @@ def bii_vbar1(i,wg):
         i_string = wg
     
         N = 8
-        values = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
-        valStd = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
+        values = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(resall),mean(czx),mean(iz)]
+        valStd = [std(trust),std(res),std(div),std(bel),std(collab),std(resall),std(czx),std(iz)]
         
         
         ind = np.arange(N)  # the x locations for the groups
@@ -514,8 +517,8 @@ def bii_vbar1(i,wg):
         fig, ax = plt.subplots()
         rects1 = ax.bar(ind, values, width, color='b', yerr=valStd)
         
-        optimum = [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(perf_tot),mean(czx_tot),mean(iz_tot)]
-        optimStd = [std(trust_tot),std(res_tot),std(div_tot),std(bel_tot),std(collab_tot),std(perf_tot),std(czx_tot),std(iz_tot)]
+        optimum = [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]
+        optimStd = [std(trust_tot),std(res_tot),std(div_tot),std(bel_tot),std(collab_tot),std(resall_tot),std(czx_tot),std(iz_tot)]
         
         rects2 = ax.bar(ind + width, optimum, width, color='y', yerr=optimStd)
         
@@ -523,7 +526,7 @@ def bii_vbar1(i,wg):
         ax.set_ylabel('Score')
         #ax.set_title('Results for ' + i_string,loc='left')
         ax.set_xticks(ind + width)
-        ax.set_xticklabels(('Trust', 'Res', 'Div', 'MS','Perf', 'Collab', 'RA', 'IZ'))
+        ax.set_xticklabels(('Trust', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone'))
         ax.set_ylim([0,10])
         
         
@@ -570,8 +573,8 @@ def bii_hbar1(i,wg):
             
         import matplotlib.pyplot as plt
         
-        val = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(perf),mean(czx),mean(iz)]
-        err = [std(trust),std(res),std(div),std(bel),std(collab),std(perf),std(czx),std(iz)]
+        val = [mean(trust),mean(res),mean(div),mean(bel),mean(collab),mean(resall),mean(czx),mean(iz)][-1::-1]
+        err = [std(trust),std(res),std(div),std(bel),std(collab),std(resall),std(czx),std(iz)][-1::-1]
         pos = arange(8)    # the bar centers on the y axis
 
 
@@ -583,7 +586,7 @@ def bii_hbar1(i,wg):
         plt.barh(pos,val, xerr=err, ecolor='r', align='center',label='Score')
         plt.errorbar(val,pos, xerr=err, label="St Dev", color='r',fmt='o')
         plt.legend(loc='upper center', shadow=True, fontsize='x-large',bbox_to_anchor=(1.1, 1.1),borderaxespad=0.)
-        plt.yticks(pos, (('Tru', 'Res', 'Div', 'Ment Str','Perf', 'Collab', 'Res All', 'In Zone')))
+        plt.yticks(pos, (('Trust', 'Resilience', 'Diversity', 'Confidence','Resource Allocation', 'Collaboration', 'Comfort Zone', 'Innovation Zone'))[-1::-1])
         plt.xlabel('Score')
         plt.title('Results for ' + i_string, fontweight='bold', y=1.01)
         plt.xlabel(r'$\mathrm{Total \ Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18')

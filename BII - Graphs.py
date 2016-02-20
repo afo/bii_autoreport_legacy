@@ -20,7 +20,7 @@ from pylab import *
 
 ### READ IN DATA and Specify data variables
 
-df0 = pd.read_csv('/Users/jean-etiennegoubet/Documents/ENS/Berkeley/bii/fulldata.csv')
+df0 = pd.read_csv('fulldata.csv')
 trust=df0['trust']=(.27*df0['QT1'].fillna(value=3)+.16*(6-df0['QT2'].fillna(value=3))+.34*df0['QT3'].fillna(value=3)+.22*(6-df0['QT1'].fillna(value=3)))* 9/4 - 5/4
 res=df0['res']=(.26*df0['QF1'].fillna(value=3)+.21*df0['QF2'].fillna(value=3)+.35*df0['QF3'].fillna(value=3)+.17*df0['QF4'].fillna(value=3))* 9/4 - 5/4
 div=df0['div']= (.15*df0['QD1'].fillna(value=3)+.29*df0['QD2'].fillna(value=3)+.35*df0['QD3'].fillna(value=3)+.20*df0['QD4'].fillna(value=3))* 9/4 - 5/4
@@ -136,7 +136,7 @@ layout = go.Layout(
     barmode='group'
 )
 fig = go.Figure(data=data, layout=layout)
-plot_url = py.plot(fig, filename='grouped-abr')
+plot_url = py.plot(fig, filename='grouped-abr',show_link=False,auto_open=True)
 
 
 # Age distribution - Stacked bar chart
