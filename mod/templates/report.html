@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<title> Result for {{ wg }} from BII </title>
+
+<head>
+<style>
+#page {
+	height: 910px;
+	width: 595px;	
+	/*remove these two lines if right-aligned*/	
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+}
+	</style>
+	</head>
+	<body style="background-color: #585858">
+
+	<div id="page">
+	<img src="{{ url_for('static', filename = 'cover.png') }}" alt="Cover image" style="width:595px;height:131px">
+
+	<p style="text-align: center; font-family: helvetica;">
+	<font size="6"> Workgroup report </font>
+	<br>
+	<font size="4"> {{ wg }} </font>
+	</p>
+
+	<div style="width: 595px">
+	<div style="float: left;width:70px">
+	<img src="{{ url_for('static', filename = 'white.png') }}" style="width: 70px; height: 200px">
+	</div>
+	<div style="float:left;width: 220px">
+	<img src="{{ url_for('static', filename = 'radar.png') }}" alt="Radar chart" style="width: 210px;height:200px;">
+	</div>
+	<div style="float: left; width: 300px"> 
+	<img src="{{ url_for('static', filename = 'hbar.png') }}" alt="Bar chart" style="width: 285px;height:200px;">
+	</div>
+	<div style="clear: both"></div>
+	</div>
+	<br>
+
+
+	<center>
+	<img src="{{ url_for('static', filename = 'hist_score.png') }}" alt="Histogram" style="width: 300px;height: 250 px;">
+	</center>
+
+	<p style="font-family: helvetica"> 
+	<font size="4"> <b>INNOVATION MINDSET: </b> </font> 
+	<br>
+	<font size="3"> Your personal Innovation Index Score is {{ index_score }} out of 10 
+	<br>
+	<br>
+	<b> Summary: Factors of your Innovation Mindset </b> </font>
+	<br>
+	<font size="1">
+	<b>TRUST (Tru)</b> {{ tru }} out of 10. (Ability to trust others and gain trust)
+	<br>
+	<b> RESILIENCE (Res)</b> {{ res }} out of 10. (Ability to overcome failure)
+	<br>
+	<b> DIVERSITY (Div) </b> {{ div }} out of 10. (Ability to overcome social barriers)
+	<br>
+	<b> MENTAL STRENGTH (Ment Str) </b> {{ men_st }} out of 10. (Confidence and belief that you can succeed)
+	<br>
+	<b> COLLABORATION (Collab)</b> {{ col }} out of 10. (Ability to work with everyone including competitors)
+	<br> 
+	<b> RESOURCE AWARENESS (Res All)</b> {{ res_all }} out of 10. (Ability to balance your resources)
+	<br>
+	<b> INNOVATION ZONE (In Zone) </b> {{ in_zone }} out of 10. (Ability to work in areas of uncertainty)
+	</font>
+	</p>
+
+	</div>
+
+
+	</body>
+
+</html>

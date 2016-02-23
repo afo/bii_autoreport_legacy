@@ -35,6 +35,9 @@ def bii_data(ident,code):
     
     return [trust,res,div,bel,collab,resall,czx,comfort,iz,score]
 
+
+# The data that is returned is returned in type pd.directory
+
 #Check labels in data fram
 
 

@@ -1,15 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 20 15:06:04 2016
-
-@author: FO
-"""
-
-# Radar 1
-
-import matplotlib.pyplot as plt
-from pylab import *
 import numpy as np
+import pandas as pd
+from pylab import *
+import matplotlib.pyplot as plt
 from matplotlib.path import Path
 from matplotlib.spines import Spine
 from matplotlib.projections.polar import PolarAxes
@@ -109,71 +101,56 @@ def unit_poly_verts(theta):
     verts = [(r*np.cos(t) + x0, r*np.sin(t) + y0) for t in theta]
     return verts
 
+def graph_data(in_data, code):
+    # Here we would like to include if it is an individual or a workgroup? Maybe not. Because the output will be the same
+    # If we would like some comparison data this is easily done by adding more data and an if-statement
+    [trust,res,div,bel,collab,resall,czx,comfort,iz,score] = in_data
+    data = [
+        ['Trust', 'Res', 'Div', 'Ment Str', 'Res All', 'Collab', 'Com Zone', 'In Zone'],
+        (code, [
+            [mean(trust), mean(res), mean(div), mean(bel), mean(collab), mean(resall), mean(comfort), mean(iz)]])
+    ]
+    return data
 
-##Is perfection right czx and collab?!!? + str(df0['Email Address'][i] + str(df0['Email Address'][j]
-
-
-
-# Take out Total score and write it underneath the graphs
-
-# PLOT RADAR 1
-
-def bii_radar1(i,w):
+def bii_radar(ident, code, data_bii):
+    score = mean(data_bii[9])
+    data = graph_data(data_bii, code)
     
-    def create_data(ident,code):
-        if ident == 1:
-            data = [
-                    ['Trust', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone'],
-                    (code, [
-                        [float(trust),float(res),float(div),float(bel),float(collab),float(resall),float(czx),float(iz)],
-                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]])
-                    ]
-            return data
-        elif wg != False:
-            data = [
-                    ['Trust', 'Res', 'Div', 'Ment Str','Res All', 'Collab', 'Com Zone', 'In Zone'],
-                    (code, [
-                        [mean(trust_tot),mean(res_tot),mean(div_tot),mean(bel_tot),mean(collab_tot),mean(resall_tot),mean(czx_tot),mean(iz_tot)]])
-                    ]
-            return data
-
-    data=create_data(ident,code)
     N = 8
     theta = radar_factory(N, frame='polygon')
-    
-    data = data
+
     spoke_labels = data.pop(0)
-    
-    fig = plt.figure(figsize=(9, 9))
-    fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
-    
+
+    fig = plt.figure()
+    #fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
+
     colors = ['b', 'r', 'g', 'm', 'y']
-    # Plot the four cases from the example data on separate axes
+
+
+
     for n, (title, case_data) in enumerate(data):
-        ax = fig.add_subplot(2, 2, n + 1, projection='radar')
+        ax = fig.add_subplot(111, projection='radar')
         plt.rgrids([2, 4, 6, 8, 10])
         ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
-                     horizontalalignment='center', verticalalignment='center')
+                    horizontalalignment='center', verticalalignment='center')
         for d, color in zip(case_data, colors):
             ax.plot(theta, d, color=color)
             ax.fill(theta, d, facecolor=color, alpha=0.25)
         ax.set_varlabels(spoke_labels)
         ax.set_ylim([0,10])
-    
+
     # add legend relative to top-left plot
-    if i != False:
-        plt.subplot(2, 2, 1)
-        labels = ('Individual', 'Average total data')
-        legend = plt.legend(labels, loc=(0.95, .95), labelspacing=0.1)
-        plt.setp(legend.get_texts(), fontsize='small')
-    else:
-        plt.subplot(2, 2, 1)
-        labels = ('Average','WG Area')
-        legend = plt.legend(labels, loc=(0.95, .95), labelspacing=0.1)
-        plt.setp(legend.get_texts(), fontsize='small')
-            
-    
-    plt.figtext(0.5, 0.965, 'Innovation Index Results',
+    plt.subplot(111)
+    labels = ('Individual', 'Average total data')
+    legend = plt.legend(labels, loc=(0.9, .95), labelspacing=0.1)
+    plt.setp(legend.get_texts(), fontsize='small')
+
+    plt.figtext(0.5, 0.965, 'Innovation Index Result',
                 ha='center', color='black', weight='bold', size='large')
     plt.xlabel(r'$\mathrm{Innovation \ Index \ Score:}\ %.3f$' %(mean(score)),fontsize='18', fontweight='bold')
-    plt.show()
+    
+
+
+    file_name = "radar"
+    path_name = "/Users/johanenglarsson/bii/mod/static/%s" %file_name
+    plt.savefig(path_name)
