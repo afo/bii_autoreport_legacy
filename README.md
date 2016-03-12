@@ -1,4 +1,4 @@
-# Berkeley Innovation Index
+# Berkeley Innovation Index (BII)
 #### Automatic Report Generator
 
 
