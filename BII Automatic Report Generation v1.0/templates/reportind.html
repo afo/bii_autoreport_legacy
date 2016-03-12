@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="max-age=0, no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+</head>
+<title> Result for {{ wg }} from BII </title>
+
+    <style type="text/css">
+    .movedown
+	{
+    	position: relative;
+    	top: 12px;
+	}
+
+    .moveup
+	{
+    	position: relative;
+    	top: -12px;
+	}
+
+	.indent { margin-left: 20px; }
+
+
+	</style>
+
+
+<head>
+<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+<meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+
+
+<style>
+#page {
+	height: 830px;
+	width: 595px;	
+	/*remove these two lines if right-aligned*/	
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+}
+
+
+	</style>
+	</head>
+	<!--<body style="background-color: #585858">-->
+
+
+	<body style="background-color: #000000">
+
+	<div id="page">
+
+
+
+	<!--HEADER-->
+
+
+	<img src="{{ url_for('static', filename = 'cover.png') }}" alt="Cover image" style="width:595px;height:131px">
+
+<div align="right" style="font-family: helvetica;margin-right: 2px; position:relative; top: -2px">
+  <font size="1">Beta version 1.07</font>
+</div>
+
+
+	
+
+	<div style="line-height:200%;">
+
+	<div style="text-align: center; font-family: helvetica;">
+	<font size="6"><b> Individual report </b></font>
+
+    <br>
+
+	<font size="4"> {{ wg }} </font>
+	</div>
+
+	</div>
+
+
+
+	<div style="float: left;width:30px">
+	<img src="{{ url_for('static', filename = 'white.png') }}?1457394284.074958" alt="" style="width: 70px; height: 200px">
+	</div>
+	<div style="float:left;width: 220px">
+	<img class="movedown" src="{{ url_for('static', filename = 'radar.png') }}?1457394284.074958" alt="" style="width: 190px;height:187px;">
+	</div>
+	<div style="float: left; width: 300px"> 
+	<img src="{{ url_for('static', filename = 'hbar.png') }}?1457394284.074958" alt="" style="width: 285px;height:200px;">
+	</div>
+	<div style="clear: both"></div>
+
+	<br>
+
+	<p class="indent" style="font-family: helvetica;">
+	
+	<font size="5"> <b>INNOVATION MINDSET </b> </font> 
+	<br>
+	<font size="4"> Your personal Innovation Index Score is {{ index_score }} out of 10<sup>*</sup>
+	<br>
+	<br>
+	<b> Factors of your Innovation Mindset </b> </font>
+	</p>
+	<font size="2">
+	<div style="line-height:130%;">
+	<p class="indent moveup" style="font-family: helvetica;">
+	<b>TRUST (Tru)</b> {{ tru }} out of 10. (Ability to trust others and gain trust)
+	<br>
+	<b> RESILIENCE (Res)</b> {{ res }} out of 10. (Ability to overcome failure)
+	<br>
+	<b> DIVERSITY (Div) </b> {{ div }} out of 10. (Ability to overcome social barriers)
+	<br>
+	<b> MENTAL STRENGTH (Ment Str) </b> {{ men_st }} out of 10. (Confidence and belief that you can succeed)
+	<br>
+	<b> COLLABORATION (Collab)</b> {{ col }} out of 10. (Ability to work with everyone including competitors)
+	<br> 
+	<b> RESOURCE AWARENESS (Res All)</b> {{ res_all }} out of 10. (Ability to balance your resources)
+	<br>
+	<b> INNOVATION ZONE (In Zone) </b> {{ in_zone }} out of 10. (Ability to work in areas of uncertainty)
+	</font>
+	</div>
+	</p>
+
+
+
+	<hr class="indent" size="1" width="440px" align="left" noshade>
+	<div style="font-family: helvetica; position:relative; left: 20px; line-height:80%;">
+	<font size="1"> <i>
+	* This is not a fixed level, anyone can grow their innovation mindset. Your level has been estimated using an  <br>
+	analysis based on the Berkeley Method for Entreprenuership & Innovation, the Comfort Zone Scale, and  <br>
+	fundamental testing methods in social psychology.
+
+	</i>
+	</font>
+	</div>
+
+	<br>
+	<div style="font-family: helvetica; text-align: center">
+	<font size="2">
+	<a href="http://www.berkeleyinnovationindex.org" target="_blank">www.berkeleyinnovationindex.org</a>
+	</font>
+	</div>
+
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+	</body>
+
+
+	<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="max-age=0, no-cache" />
+<meta http-equiv="Expires" content="-1" />
+</head>
+
+</html>
