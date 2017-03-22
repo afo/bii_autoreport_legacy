@@ -44,5 +44,5 @@ def bii_hbar(group,code,in_data):
 #        plt.legend((score_all,score_mean), ('Score','Mean'),bbox_to_anchor=(1.3, 1.3),borderaxespad=0.)
     file_name = "hbar"
     path_name = "static/%s" %file_name
-        #path_name = "/Users/johanenglarsson/bii/mod/static/%s" %file_name
+        #path_name = "[path]/bii/mod/static/%s" %file_name
     plt.savefig(path_name, bbox_extra_artists=(lgd,), bbox_inches='tight')
