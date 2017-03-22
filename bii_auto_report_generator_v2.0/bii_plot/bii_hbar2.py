@@ -44,5 +44,5 @@ def bii_hbar2(in_data, in_data_comp, code, comp):
 	file_name = 'hbar2'
 	path_name = "static/%s" %file_name
 
-	#path_name = "/Users/johanenglarsson/bii/mod/comp/static/%s" %file_name
+	#path_name = "[path]/bii/mod/static/%s" %file_name
 	plt.savefig(path_name, bbox_extra_artists=(lgd,), bbox_inches='tight')
